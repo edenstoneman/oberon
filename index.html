@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Oak Tree</title>
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .bg {
+            /* The image used */
+            background-image: url(./creation (18).png);
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-size: cover;
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -24,6 +38,7 @@
     </style>
 </head>
 <body>
+    <div class="bg">
     <div id="timer">25:00</div>
     <div class="timer-controls">
         <button onclick="startTimer()">Start</button>
@@ -114,5 +129,6 @@
             return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
     </script>
+        </div>
 </body>
 </html>
