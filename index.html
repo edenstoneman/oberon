@@ -9,8 +9,95 @@
         <link rel="icon" href="Logo.png">
         <link rel="stylesheet" href="oberon.css">
         <title>Oberon</title>
-    </head>
-    <body>
-        
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .timer {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .start {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .stop {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .reset {
+            background-color: #2196F3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="timer" id="timer">25:00</div>
+    <div class="buttons">
+        <button class="start" onclick="startTimer()">Start</button>
+        <button class="stop" onclick="stopTimer()">Stop</button>
+        <button class="reset" onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        let workTime = 25 * 60; // Work time in seconds (25 minutes)
+        let breakTime = 5 * 60; // Break time in seconds (5 minutes)
+        let isWorkSession = true; // Flag to check if it's work or break session
+
+        let timer; // Variable to hold the timer interval
+
+        function startTimer() {
+            let time = isWorkSession ? workTime : breakTime;
+            timer = setInterval(() => {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                document.getElementById('timer').innerText = `${minutes}:${seconds}`;
+                console.log(`${minutes}:${seconds}`);
+                if (--time < 0) {
+                    clearInterval(timer);
+                    isWorkSession = !isWorkSession;
+                    startTimer();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            isWorkSession = true;
+            document.getElementById('timer').innerText = '25:00';
+        }
+
+        // Start the timer
+        startTimer();
+    </script>
     </body>
 </html>
