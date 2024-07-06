@@ -66,8 +66,10 @@
         <button class="reset" onclick="resetTimer()">Reset</button>
     </div>
 
+    <audio id="chime" src="chime.mp3" preload="auto"></audio> <!-- Added audio element -->
+
     <script>
-        let workTime = 25 * 60; // Work time in seconds (25 minutes)
+        let workTime = 5 * 60; // Work time in seconds (25 minutes)
         let shortBreakTime = 5 * 60; // Short break time in seconds (5 minutes)
         let longBreakTime = 10 * 60; // Long break time in seconds (10 minutes)
         let isWorkSession = true; // Flag to check if it's work or break session
@@ -85,6 +87,7 @@
                 console.log(`${minutes}:${seconds}`);
                 if (--time < 0) {
                     clearInterval(timer);
+                    document.getElementById('chime').play(); // Play chime sound
                     if (isWorkSession) {
                         intervalCount++;
                     }
