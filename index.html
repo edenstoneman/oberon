@@ -13,34 +13,29 @@
         <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
         <title>Oberon</title>
         <link rel="stylesheet" href="style.css">
-    <style>
-        
-    </style>
-</head>
-<body>
-    <div class="timer" id="timer">25:00</div>
-    <div class="buttons">
-        <button class="start" onclick="startTimer()">Start</button>
-        <button class="stop" onclick="stopTimer()">Stop</button>
-        <button class="reset" onclick="resetTimer()">Reset</button>
-    </div>
-     <div class="task-manager">
-        <h2>Task Manager</h2>
-        <input type="text" id="taskName" placeholder="Task Name">
-        <select id="taskPriority">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-        </select>
-        <button onclick="addTask()">Add Task</button>
-
-        <div class="task-list" id="taskList">
-            <!-- Task items will be added here dynamically -->
+    </head>
+    <body>
+        <div class="timer" id="timer">25:00</div>
+        <div class="buttons">
+            <button class="start" onclick="startTimer()">Start</button>
+            <button class="stop" onclick="stopTimer()">Stop</button>
+            <button class="reset" onclick="resetTimer()">Reset</button>
         </div>
-    </div>
-    <audio id="chime" src="chime.mp3" preload="auto"></audio> <!-- Added audio element -->
+        <div class="task-manager">
+            <h2>Task Manager</h2>
+            <input type="text" id="taskName" placeholder="Task Name">
+            <select id="taskPriority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            <button onclick="addTask()">Add Task</button>
 
-    
- <script src="script.js"></script>
-</body>
+            <div class="task-list" id="taskList">
+                <!-- Task items will be added here dynamically -->
+            </div>
+        </div>
+        <audio id="chime" src="chime.mp3" preload="auto"></audio> <!-- Added audio element -->
+     <script src="script.js"></script>
+    </body>
 </html>
