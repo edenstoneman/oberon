@@ -12,19 +12,19 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
         <title>Oberon</title>
-       <style>
+    <style>
         body {
-            font-family: "Metamorphous", serif;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #491D44;
+            background-color: #f0f0f0;
         }
 
         .timer {
-            font-size: 96px;
+            font-size: 48px;
             margin-bottom: 20px;
         }
 
@@ -39,21 +39,20 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-family: "Oxanium", sans-serif;
         }
 
         .start {
-            background-color: #A04095;
+            background-color: #4CAF50;
             color: white;
         }
 
         .stop {
-            background-color: #A04095;
+            background-color: #f44336;
             color: white;
         }
 
         .reset {
-            background-color: #A04095;
+            background-color: #2196F3;
             color: white;
         }
     </style>
@@ -69,13 +68,15 @@
 
     <script>
         let workTime = 25 * 60; // Work time in seconds (25 minutes)
-        let breakTime = 5 * 60; // Break time in seconds (5 minutes)
+        let shortBreakTime = 5 * 60; // Short break time in seconds (5 minutes)
+        let longBreakTime = 10 * 60; // Long break time in seconds (10 minutes)
         let isWorkSession = true; // Flag to check if it's work or break session
+        let intervalCount = 0; // Counter for intervals
 
         let timer; // Variable to hold the timer interval
 
         function startTimer() {
-            let time = isWorkSession ? workTime : breakTime;
+            let time = isWorkSession ? workTime : (intervalCount === 4 ? longBreakTime : shortBreakTime);
             timer = setInterval(() => {
                 let minutes = Math.floor(time / 60);
                 let seconds = time % 60;
@@ -84,6 +85,12 @@
                 console.log(`${minutes}:${seconds}`);
                 if (--time < 0) {
                     clearInterval(timer);
+                    if (isWorkSession) {
+                        intervalCount++;
+                    }
+                    if (intervalCount === 4) {
+                        intervalCount = 0;
+                    }
                     isWorkSession = !isWorkSession;
                     startTimer();
                 }
@@ -97,11 +104,9 @@
         function resetTimer() {
             clearInterval(timer);
             isWorkSession = true;
+            intervalCount = 0;
             document.getElementById('timer').innerText = '25:00';
         }
-
-        // Start the timer
-        startTimer();
     </script>
 
 </body>
