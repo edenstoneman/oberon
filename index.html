@@ -12,13 +12,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
         <title>Oberon</title>
-        ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -120,7 +113,20 @@
         <button class="stop" onclick="stopTimer()">Stop</button>
         <button class="reset" onclick="resetTimer()">Reset</button>
     </div>
+     <div class="task-manager">
+        <h2>Task Manager</h2>
+        <input type="text" id="taskName" placeholder="Task Name">
+        <select id="taskPriority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <button onclick="addTask()">Add Task</button>
 
+        <div class="task-list" id="taskList">
+            <!-- Task items will be added here dynamically -->
+        </div>
+    </div>
     <audio id="chime" src="chime.mp3" preload="auto"></audio> <!-- Added audio element -->
 
     <script>
@@ -167,34 +173,17 @@
         }
     </script>
 
-    <div class="task-manager">
-        <h2>Task Manager</h2>
-        <input type="text" id="taskName" placeholder="Task Name">
-        <select id="taskPriority">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-        </select>
-        <input type="date" id="taskDeadline">
-        <button onclick="addTask()">Add Task</button>
-
-        <div class="task-list" id="taskList">
-            <!-- Task items will be added here dynamically -->
-        </div>
-    </div>
-
     <script>
         class TaskManager {
             constructor() {
                 this.tasks = [];
             }
 
-            addTask(name, priority, deadline) {
+            addTask(name, priority) {
                 const task = {
                     id: this.tasks.length + 1,
                     name: name,
                     priority: priority,
-                    deadline: deadline,
                     completed: false
                 };
                 this.tasks.push(task);
@@ -221,7 +210,7 @@
                     const taskItem = document.createElement('div');
                     taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
                     taskItem.innerHTML = `
-                        <span>${task.name} (${task.priority}) - ${task.deadline}</span>
+                        <span>${task.name} (${task.priority})</span>
                         <button onclick="taskManager.completeTask(${task.id})">${task.completed ? 'Undo' : 'Complete'}</button>
                         <button onclick="taskManager.removeTask(${task.id})">Remove</button>
                     `;
@@ -235,12 +224,10 @@
         function addTask() {
             const name = document.getElementById('taskName').value;
             const priority = document.getElementById('taskPriority').value;
-            const deadline = document.getElementById('taskDeadline').value;
-            if (name && priority && deadline) {
-                taskManager.addTask(name, priority, deadline);
+            if (name && priority) {
+                taskManager.addTask(name, priority);
                 document.getElementById('taskName').value = '';
                 document.getElementById('taskPriority').value = 'High';
-                document.getElementById('taskDeadline').value = '';
             }
         }
     </script>
